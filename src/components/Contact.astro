@@ -1,0 +1,349 @@
+---
+import { site } from '../data/site';
+
+// Positions in km from Galanta (east, north), 1 km = 5 px in the map.
+const towns = [
+  { name: 'Sereď', x: 0.6, y: 10.7, align: 'end' },
+  { name: 'Trnava', x: -10.4, y: 20.9, align: 'end' },
+  { name: 'Hlohovec', x: 5.7, y: 26.8, align: 'start' },
+  { name: 'Piešťany', x: 8, y: 44.8, align: 'start' },
+  { name: 'Dunajská Streda', x: -8.1, y: -20, align: 'start' },
+].map((t) => ({ ...t, cx: 280 + t.x * 5, cy: 360 - t.y * 5 }));
+
+const rings = [10, 25, 50];
+---
+
+<section class="section section--white contact" id="kontakt">
+  <div class="container contact__inner">
+    <div class="contact__copy">
+      <span class="label" data-reveal>Kontakt</span>
+      <h2 class="section-title" data-reveal style="--d:.08s">Dohodnime si obhliadku</h2>
+      <p class="section-lead" data-reveal style="--d:.16s">
+        Zavolajte alebo nám napíšte. Termín dohodneme telefonicky a prídeme k vám.
+      </p>
+
+      <a href={site.phoneHref} class="big-phone" data-reveal style="--d:.24s">
+        <span>Telefón</span>
+        {site.phone}
+      </a>
+
+      <dl class="info" data-reveal style="--d:.3s">
+        <div>
+          <dt>E-mail</dt>
+          <dd class="email">
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+            <button type="button" class="copy" data-copy={site.email}>Kopírovať</button>
+          </dd>
+        </div>
+        <div>
+          <dt>Adresa</dt>
+          <dd>{site.street}, {site.city}</dd>
+        </div>
+        <div>
+          <dt>Pôsobnosť</dt>
+          <dd>Galanta a {site.region}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <figure class="map" data-reveal style="--d:.15s">
+      <svg viewBox="0 0 560 560" role="img" aria-label={`Mapa pôsobnosti: Galanta a ${site.region}`}>
+        <defs>
+          <pattern id="map-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M28 0H0V28" fill="none" stroke="#dfe2de" stroke-width="1" />
+          </pattern>
+        </defs>
+
+        <rect width="560" height="560" fill="url(#map-grid)" />
+
+        {
+          rings.map((km) => (
+            <g class="ring">
+              <circle cx="280" cy="360" r={km * 5} />
+              <text x={280 + km * 5 * 0.71 + 6} y={360 - km * 5 * 0.71 - 6}>
+                {km} km
+              </text>
+            </g>
+          ))
+        }
+
+        {
+          towns.map((t, i) => (
+            <g class="town" style={`--i:${i}`}>
+              <path class="route" d={`M280 360L${t.cx} ${t.cy}`} pathLength="1" />
+              <circle class="town__dot" cx={t.cx} cy={t.cy} r="5" />
+              <text class="town__name" x={t.cx + (t.align === 'end' ? -12 : 12)} y={t.cy + 5} text-anchor={t.align}>
+                {t.name}
+              </text>
+            </g>
+          ))
+        }
+
+        <g class="home">
+          <circle class="home__pulse" cx="280" cy="360" r="14" />
+          <circle cx="280" cy="360" r="14" fill="var(--green)" stroke="#fff" stroke-width="4" />
+          <path d="M273 362l7-6 7 6v6h-14z" fill="#fff" />
+          <rect x="232" y="384" width="96" height="26" rx="6" fill="var(--dark)" />
+          <text class="home__name" x="280" y="401.5" text-anchor="middle">Galanta</text>
+        </g>
+      </svg>
+
+      <figcaption>
+        <strong>{site.name}</strong>
+        <span>{site.street}, {site.city}</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .contact {
+    border-top: 1px solid var(--line);
+  }
+
+  .contact__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4.5rem;
+    align-items: center;
+  }
+
+  .big-phone {
+    display: inline-block;
+    margin-top: 2.2rem;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--green);
+    transition: color 0.25s;
+  }
+
+  .big-phone:hover {
+    color: var(--green-dark);
+  }
+
+  .big-phone span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--muted);
+  }
+
+  .info {
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .info div {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .info dt {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .info dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .info a {
+    border-bottom: 1px solid var(--line-strong);
+    transition: border-color 0.25s;
+  }
+
+  .info a:hover {
+    border-color: var(--green);
+  }
+
+  .email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.8rem;
+  }
+
+  .copy {
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid var(--line-strong);
+    background: var(--white);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
+  }
+
+  .copy:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .copy:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+
+  /* Service area map */
+  .map {
+    position: relative;
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+
+  .map svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .ring circle {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 6;
+  }
+
+  .ring text {
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 700;
+    fill: var(--muted);
+  }
+
+  .route {
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    opacity: 0.55;
+  }
+
+  .town__dot {
+    fill: var(--white);
+    stroke: var(--green);
+    stroke-width: 3;
+  }
+
+  .town__name {
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    fill: var(--text);
+    paint-order: stroke;
+    stroke: var(--bg);
+    stroke-width: 5px;
+    stroke-linejoin: round;
+  }
+
+  .home__name {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 800;
+    fill: #fff;
+  }
+
+  .home__pulse {
+    fill: var(--green);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulse 2.4s var(--ease) infinite;
+  }
+
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    to {
+      transform: scale(3.2);
+      opacity: 0;
+    }
+  }
+
+  :global(.js) .map .route {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.2s var(--ease);
+    transition-delay: calc(0.5s + var(--i) * 0.15s);
+  }
+
+  :global(.js) .map .town__dot,
+  :global(.js) .map .town__name {
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
+    transition-delay: calc(1.1s + var(--i) * 0.15s);
+  }
+
+  :global(.js) .map.is-visible .route {
+    stroke-dashoffset: 0;
+  }
+
+  :global(.js) .map.is-visible .town__dot,
+  :global(.js) .map.is-visible .town__name {
+    opacity: 1;
+  }
+
+  figcaption {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    display: grid;
+    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--line);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  figcaption span {
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  @media (max-width: 960px) {
+    .contact__inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .info div {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy').forEach((button) => {
+    const label = button.textContent;
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        button.textContent = 'Skopírované';
+      } catch {
+        button.textContent = 'Nepodarilo sa';
+      }
+      setTimeout(() => (button.textContent = label), 2000);
+    });
+  });
+</script>

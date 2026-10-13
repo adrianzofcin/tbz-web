@@ -1,0 +1,523 @@
+---
+const points = [
+  { title: 'Vzduch-voda', text: 'Vykurovanie a ohrev teplej vody pre celý dom.' },
+  { title: 'Vzduch-vzduch', text: 'Kúrenie aj chladenie po jednotlivých miestnostiach.' },
+  { title: 'Výkon na mieru', text: 'Návrh podľa tepelných strát a najchladnejších dní v roku.' },
+  { title: 'Ohľaduplné umiestnenie', text: 'Vonkajšiu jednotku osadíme tak, aby vyhovovala vám aj susedom.' },
+];
+
+const slats = Array.from({ length: 14 }, (_, i) => i);
+const grille = [28, 46, 64, 82];
+const spokes = [0, 30, 60, 90, 120, 150];
+---
+
+<section class="section ac" id="klimatizacie">
+  <div class="ac__inner scene" data-mode="cool">
+    <svg class="pipes" data-reveal aria-hidden="true">
+      <path class="pipes__shell" pathLength="1" />
+      <path class="pipes__core" pathLength="1" />
+    </svg>
+
+    <div class="unit unit--out">
+      <span class="tag">Exteriér</span>
+      <figure class="unit__art" data-reveal="left" data-vb="80 310 500 290" data-from="541 515" data-turn="572">
+        <svg viewBox="80 310 500 290" aria-hidden="true">
+          <defs>
+            <linearGradient id="ac-body" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset=".55" stop-color="#f1f3f1" />
+              <stop offset="1" stop-color="#d9dcd9" />
+            </linearGradient>
+            <linearGradient id="ac-outlet" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2b302d" />
+              <stop offset="1" stop-color="#4a504c" />
+            </linearGradient>
+            <linearGradient id="ac-flap" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6f7f6" />
+              <stop offset="1" stop-color="#c9cdc9" />
+            </linearGradient>
+            <linearGradient id="ou-body" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#d4d7d4" />
+              <stop offset=".18" stop-color="#eceeec" />
+              <stop offset=".8" stop-color="#dcdfdc" />
+              <stop offset="1" stop-color="#b9bdb9" />
+            </linearGradient>
+            <linearGradient id="ou-top" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f7f8f7" />
+              <stop offset="1" stop-color="#d9dcd9" />
+            </linearGradient>
+            <radialGradient id="ou-hole" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#1c201e" />
+              <stop offset=".8" stop-color="#2c312e" />
+              <stop offset="1" stop-color="#474d49" />
+            </radialGradient>
+            <linearGradient id="ou-blade" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9aa19c" />
+              <stop offset="1" stop-color="#5f6662" />
+            </linearGradient>
+            <radialGradient id="ou-hub" cx=".35" cy=".35" r=".7">
+              <stop offset="0" stop-color="#e4e7e4" />
+              <stop offset="1" stop-color="#7d847f" />
+            </radialGradient>
+            <filter id="ac-shadow" x="-20%" y="-30%" width="140%" height="190%">
+              <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#1f2421" flood-opacity=".22" />
+            </filter>
+            <filter id="ou-shadow" x="-20%" y="-20%" width="140%" height="150%">
+              <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#1f2421" flood-opacity=".28" />
+            </filter>
+            <filter id="blur-soft">
+              <feGaussianBlur stdDeviation="8" />
+            </filter>
+            <filter id="motion">
+              <feGaussianBlur stdDeviation="0.8" />
+            </filter>
+          </defs>
+
+          <!-- outdoor unit -->
+          <ellipse cx="320" cy="582" rx="230" ry="16" fill="#1f2421" opacity=".22" filter="url(#blur-soft)" />
+          <rect x="128" y="556" width="44" height="24" rx="3" fill="#6f7672" />
+          <rect x="468" y="556" width="44" height="24" rx="3" fill="#6f7672" />
+          <g filter="url(#ou-shadow)">
+            <rect x="100" y="330" width="440" height="234" rx="10" fill="url(#ou-body)" />
+          </g>
+          <rect x="100" y="330" width="440" height="20" rx="10" fill="url(#ou-top)" />
+          <rect x="100" y="344" width="440" height="6" fill="#d2d5d2" />
+          <rect x="100" y="548" width="440" height="16" rx="6" fill="#c3c7c3" />
+
+          <!-- fan -->
+          <circle cx="262" cy="448" r="96" fill="#c5c9c5" />
+          <circle cx="262" cy="448" r="90" fill="url(#ou-hole)" />
+          <g class="blades" filter="url(#motion)">
+            {
+              [0, 120, 240].map((r) => (
+                <path
+                  d="M262 448c-10-24-6-62 22-80 16 22 12 58-22 80z"
+                  fill="url(#ou-blade)"
+                  transform={`rotate(${r} 262 448)`}
+                />
+              ))
+            }
+          </g>
+          <circle cx="262" cy="448" r="18" fill="url(#ou-hub)" />
+          <g class="grille">
+            {grille.map((r) => <circle cx="262" cy="448" r={r} />)}
+            {spokes.map((a) => <line x1="172" y1="448" x2="352" y2="448" transform={`rotate(${a} 262 448)`} />)}
+          </g>
+
+          <!-- side vents -->
+          <rect x="384" y="372" width="132" height="152" rx="4" fill="#c9cdc9" />
+          {
+            slats.map((i) => (
+              <g>
+                <rect x="388" y={376 + i * 10.6} width="124" height="5" rx="1" fill="#eef0ee" />
+                <rect x="388" y={381 + i * 10.6} width="124" height="2" fill="#a9aea9" />
+              </g>
+            ))
+          }
+
+          <!-- service valves -->
+          <rect x="528" y="492" width="26" height="46" rx="4" fill="#b9bdb9" />
+          <circle cx="541" cy="506" r="5" fill="#b8865b" />
+          <circle cx="541" cy="524" r="5" fill="#b8865b" />
+          <rect x="116" y="520" width="56" height="16" rx="2" fill="#e8eae8" stroke="#c9cdc9" />
+        </svg>
+      </figure>
+    </div>
+
+    <div class="ac__copy">
+      <span class="label" data-reveal>Klimatizácie a tepelné čerpadlá</span>
+      <h2 class="section-title" data-reveal style="--d:.08s">V lete príjemný chlad, v zime teplo</h2>
+      <p class="section-lead" data-reveal style="--d:.16s">
+        Tepelné čerpadlo vzduch-voda vykúri celý dom, klimatizácia vzduch-vzduch rieši jednotlivé miestnosti — kúri
+        aj chladí. Poradíme, čo sa hodí práve k vášmu domu.
+      </p>
+
+      <dl class="points">
+        {
+          points.map((p, i) => (
+            <div data-reveal style={`--d:${0.2 + i * 0.06}s`}>
+              <dt>{p.title}</dt>
+              <dd>{p.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="unit unit--in">
+      <div class="unit__head">
+        <span class="tag">Interiér</span>
+        <div class="mode" role="group" aria-label="Režim klimatizácie">
+          <button type="button" data-set-mode="cool" aria-pressed="true">Chladenie</button>
+          <button type="button" data-set-mode="heat" aria-pressed="false">Vykurovanie</button>
+        </div>
+      </div>
+      <figure class="unit__art" data-reveal="right" data-vb="50 40 560 240" data-from="540 112" data-turn="590">
+        <svg viewBox="50 40 560 240" aria-hidden="true">
+          <!-- indoor unit -->
+          <g filter="url(#ac-shadow)">
+            <rect x="70" y="56" width="490" height="124" rx="22" fill="url(#ac-body)" />
+          </g>
+          <rect x="80" y="60" width="470" height="3" rx="1.5" fill="#fff" />
+          <path d="M86 140h458" stroke="#dcdfdc" stroke-width="1.5" />
+          <path d="M92 152h446c0 14-10 24-26 24H118c-16 0-26-10-26-24z" fill="url(#ac-outlet)" />
+          <g class="flap">
+            <rect x="104" y="152" width="422" height="16" rx="8" fill="url(#ac-flap)" />
+          </g>
+          <rect x="430" y="88" width="78" height="34" rx="8" fill="#2a2f2c" />
+          <rect x="432" y="90" width="74" height="12" rx="6" fill="#ffffff" opacity=".06" />
+          <text x="469" y="113" text-anchor="middle" class="display" data-temp>22°</text>
+          <circle cx="520" cy="105" r="3" class="led" />
+
+          <!-- airflow -->
+          <g class="airflow">
+            {
+              [0, 1, 2, 3, 4, 5, 6].map((i) => (
+                <path
+                  class="stream"
+                  style={`--s:${i}`}
+                  d={`M${120 + i * 62} 182c-6 26 14 48 4 82`}
+                />
+              ))
+            }
+          </g>
+
+        </svg>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ac__inner {
+    --pipe-shell: #c4c8c4;
+    --pipe-core: #eef0ee;
+    --air: #8fbfd2;
+    position: relative;
+    width: min(100% - 2.5rem, 1440px);
+    margin-inline: auto;
+    padding-bottom: 3.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: stretch;
+  }
+
+  .scene[data-mode='heat'] {
+    --air: #e2a56e;
+  }
+
+  .ac__copy {
+    padding-block: 1rem 3rem;
+    text-align: center;
+  }
+
+  .ac .label {
+    font-size: 1rem;
+  }
+
+  .ac .section-title {
+    margin-inline: auto;
+    font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+  }
+
+  .ac .section-lead {
+    margin-inline: auto;
+  }
+
+  .points {
+    margin: 2.4rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 2rem;
+    text-align: left;
+  }
+
+  .points div {
+    padding-top: 1rem;
+    border-top: 2px solid var(--line-strong);
+  }
+
+  .points dt {
+    font-weight: 700;
+  }
+
+  .points dd {
+    margin: 0.3rem 0 0;
+    color: var(--muted);
+    font-size: 0.96rem;
+  }
+
+  /* Units */
+  .unit {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .unit--out {
+    justify-content: space-between;
+  }
+
+  .unit__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+
+  .unit__art {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+  }
+
+  .unit__art svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .unit--out .unit__art {
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Refrigerant line connecting both units, drawn under the text */
+  .pipes {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  :global(.js) .pipes[data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .pipes path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .pipes__shell {
+    stroke: var(--pipe-shell);
+    stroke-width: 14;
+  }
+
+  .pipes__core {
+    stroke: var(--pipe-core);
+    stroke-width: 10;
+  }
+
+  :global(.js) .pipes path {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.6s var(--ease) 0.7s;
+  }
+
+  :global(.js) .pipes.is-visible path {
+    stroke-dashoffset: 0;
+  }
+
+  .mode {
+    display: flex;
+    padding: 4px;
+    border-radius: 8px;
+    background: var(--white);
+    border: 1px solid var(--line);
+  }
+
+  .mode button {
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition:
+      background 0.25s,
+      color 0.25s;
+  }
+
+  .mode button[aria-pressed='true'] {
+    background: var(--green);
+    color: #fff;
+  }
+
+  .display {
+    font-family: var(--font);
+    font-size: 19px;
+    font-weight: 700;
+    fill: #9be3b1;
+  }
+
+  .scene[data-mode='heat'] .display {
+    fill: #f2c08a;
+  }
+
+  .led {
+    fill: #3fbf6a;
+    animation: blink 2.4s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .flap {
+    transform-box: fill-box;
+    transform-origin: top;
+    animation: swing 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes swing {
+    from {
+      transform: translateY(0) scaleY(1);
+    }
+    to {
+      transform: translateY(6px) scaleY(0.55);
+    }
+  }
+
+  .stream {
+    fill: none;
+    stroke: var(--air);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 18 90;
+    opacity: 0.8;
+    animation: flow 2.2s linear infinite;
+    animation-delay: calc(var(--s) * -0.31s);
+    transition: stroke 0.6s;
+  }
+
+  @keyframes flow {
+    from {
+      stroke-dashoffset: 108;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .blades {
+    transform-box: view-box;
+    transform-origin: 262px 448px;
+    animation: spin 1.1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  .grille circle,
+  .grille line {
+    fill: none;
+    stroke: #c9cdc9;
+    stroke-width: 2.2;
+  }
+
+  .grille line {
+    stroke-width: 1.6;
+  }
+
+  @media (max-width: 1100px) {
+    .ac__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2.5rem 2rem;
+    }
+
+    .ac__copy {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      padding-bottom: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .points {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  type Point = [number, number];
+
+  const inner = document.querySelector<HTMLElement>('.ac__inner');
+  const pipes = inner?.querySelector<SVGSVGElement>('.pipes');
+
+  // Maps a point from a unit's SVG viewBox to pixels inside .ac__inner (ignores reveal transforms).
+  const toInner = (fig: HTMLElement, x: number, y: number): Point => {
+    const [bx, by, bw, bh] = (fig.dataset.vb ?? '').split(' ').map(Number);
+    return [fig.offsetLeft + ((x - bx) / bw) * fig.offsetWidth, fig.offsetTop + ((y - by) / bh) * fig.offsetHeight];
+  };
+
+  const roundedPath = (points: Point[], radius: number): string => {
+    let d = `M${points[0].join(' ')}`;
+    for (let i = 1; i < points.length - 1; i++) {
+      const [px, py] = points[i - 1];
+      const [cx, cy] = points[i];
+      const [nx, ny] = points[i + 1];
+      const r = Math.min(radius, Math.hypot(cx - px, cy - py) / 2, Math.hypot(nx - cx, ny - cy) / 2);
+      const inLen = Math.hypot(cx - px, cy - py) || 1;
+      const outLen = Math.hypot(nx - cx, ny - cy) || 1;
+      d += `L${cx - ((cx - px) / inLen) * r} ${cy - ((cy - py) / inLen) * r}`;
+      d += `Q${cx} ${cy} ${cx + ((nx - cx) / outLen) * r} ${cy + ((ny - cy) / outLen) * r}`;
+    }
+    return `${d}L${points[points.length - 1].join(' ')}`;
+  };
+
+  const drawPipes = () => {
+    if (!inner || !pipes) return;
+    const [outFig, inFig] = inner.querySelectorAll<HTMLElement>('.unit__art');
+    const ends = [outFig, inFig].map((fig) => {
+      const [x, y] = (fig.dataset.from ?? '').split(' ').map(Number);
+      return { start: toInner(fig, x, y), turnX: toInner(fig, Number(fig.dataset.turn), y)[0] };
+    });
+    const runY = inner.clientHeight - 24;
+    const [out, indoor] = ends;
+    const d = roundedPath(
+      [out.start, [out.turnX, out.start[1]], [out.turnX, runY], [indoor.turnX, runY], [indoor.turnX, indoor.start[1]], indoor.start],
+      28,
+    );
+    pipes.setAttribute('viewBox', `0 0 ${inner.clientWidth} ${inner.clientHeight}`);
+    pipes.querySelectorAll('path').forEach((path) => path.setAttribute('d', d));
+  };
+
+  if (inner) new ResizeObserver(drawPipes).observe(inner);
+
+  const scene = document.querySelector<HTMLElement>('.scene');
+  const temp = scene?.querySelector<SVGTextElement>('[data-temp]');
+  const temps: Record<string, string> = { cool: '22°', heat: '24°' };
+
+  scene?.querySelectorAll<HTMLButtonElement>('[data-set-mode]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const mode = button.dataset.setMode ?? 'cool';
+      scene.dataset.mode = mode;
+      scene.querySelectorAll('[data-set-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+      if (temp) temp.textContent = temps[mode];
+    });
+  });
+</script>

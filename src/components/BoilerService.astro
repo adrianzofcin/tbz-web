@@ -1,0 +1,765 @@
+---
+import { site } from '../data/site';
+
+// badge = callout anchor in the boiler SVG (viewBox units)
+const tasks = [
+  { title: 'Prehliadka a čistenie', text: 'Vyčistíme horák, výmenník aj odvod kondenzátu.', badge: [322, 250] },
+  { title: 'Kontrola spaľovania', text: 'Zmeriame spaliny a kotol nastavíme na optimálnu prevádzku.', badge: [312, 293] },
+  { title: 'Kontrola bezpečnosti', text: 'Preveríme tesnosť, poistné prvky a odvod spalín.', badge: [384, 330] },
+  { title: 'Opravy a diagnostika', text: 'Zistíme príčinu poruchy a kotol opravíme alebo vymeníme diel.', badge: [284, 414] },
+];
+
+const flames = [214, 226, 238, 250, 262, 274, 286, 298];
+const fins = Array.from({ length: 9 }, (_, i) => 180 + i * 8);
+const blades = [0, 60, 120, 180, 240, 300];
+
+const pipes = [
+  { x: 186, color: 'copper', label: 'ÚK' },
+  { x: 226, color: 'copper', label: 'TV' },
+  { x: 260, color: 'gas', label: 'PLYN' },
+  { x: 294, color: 'copper', label: 'SV' },
+  { x: 334, color: 'copper', label: 'ÚK' },
+];
+---
+
+<section class="section boiler" id="servis-kotlov">
+  <div class="container boiler__inner">
+    <svg class="callouts" aria-hidden="true">
+      {tasks.map((_, i) => <path class="callout" data-part={i + 1} />)}
+    </svg>
+
+    <figure class="boiler__visual" data-reveal="left" data-vb="70 40 400 590">
+      <svg viewBox="70 40 400 590" role="img" aria-label="Plynový kotol s otvoreným krytom">
+        <defs>
+          <linearGradient id="b-body" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#e9ebe9" />
+            <stop offset=".12" stop-color="#ffffff" />
+            <stop offset=".75" stop-color="#f3f4f3" />
+            <stop offset="1" stop-color="#d4d7d4" />
+          </linearGradient>
+          <linearGradient id="b-front" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".9" />
+            <stop offset="1" stop-color="#eceeec" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="b-panel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e6e8e6" />
+            <stop offset="1" stop-color="#d3d6d3" />
+          </linearGradient>
+          <linearGradient id="b-glass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3a403c" />
+            <stop offset="1" stop-color="#1e2220" />
+          </linearGradient>
+          <linearGradient id="b-flue" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#b9bdb9" />
+            <stop offset=".35" stop-color="#f4f5f4" />
+            <stop offset="1" stop-color="#a9aea9" />
+          </linearGradient>
+          <linearGradient id="b-copper" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#9c6a42" />
+            <stop offset=".4" stop-color="#e0b089" />
+            <stop offset="1" stop-color="#8a5c38" />
+          </linearGradient>
+          <linearGradient id="b-gas" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#8f9590" />
+            <stop offset=".4" stop-color="#dfe2df" />
+            <stop offset="1" stop-color="#7f8581" />
+          </linearGradient>
+          <radialGradient id="b-gauge" cx=".4" cy=".35" r=".7">
+            <stop offset="0" stop-color="#ffffff" />
+            <stop offset="1" stop-color="#dfe2df" />
+          </radialGradient>
+          <linearGradient id="b-hx" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#9ea49f" />
+            <stop offset=".35" stop-color="#e6e9e6" />
+            <stop offset="1" stop-color="#a7ada8" />
+          </linearGradient>
+          <linearGradient id="b-vessel" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#9c4a3e" />
+            <stop offset=".35" stop-color="#d27a6a" />
+            <stop offset="1" stop-color="#8e4136" />
+          </linearGradient>
+          <linearGradient id="b-blue" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#2f7fc4" />
+            <stop offset="1" stop-color="#a8d6f5" />
+          </linearGradient>
+          <filter id="b-shadow" x="-30%" y="-20%" width="160%" height="150%">
+            <feDropShadow dx="10" dy="20" stdDeviation="16" flood-color="#1f2421" flood-opacity=".25" />
+          </filter>
+          <filter id="b-small" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#1f2421" flood-opacity=".25" />
+          </filter>
+          <linearGradient id="b-fade-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#000" />
+            <stop offset=".07" stop-color="#fff" />
+            <stop offset=".95" stop-color="#fff" />
+            <stop offset="1" stop-color="#000" />
+          </linearGradient>
+          <mask id="b-fade" maskUnits="userSpaceOnUse" x="70" y="40" width="400" height="590">
+            <rect x="70" y="40" width="400" height="590" fill="url(#b-fade-grad)" />
+          </mask>
+        </defs>
+
+        <!-- flue + pipes fade out at the edges -->
+        <g mask="url(#b-fade)">
+          <g filter="url(#b-small)">
+            <rect x="226" y="0" width="68" height="104" fill="url(#b-flue)" />
+            <rect x="218" y="78" width="84" height="18" rx="3" fill="url(#b-flue)" />
+          </g>
+
+          {
+            pipes.map((p) => (
+              <g filter="url(#b-small)">
+                <rect x={p.x - 7} y="500" width="14" height="160" fill={p.color === 'gas' ? 'url(#b-gas)' : 'url(#b-copper)'} />
+                <rect x={p.x - 11} y="548" width="22" height="26" rx="3" fill={p.color === 'gas' ? '#c7a43a' : '#a9aea9'} />
+                <rect x={p.x - 20} y="555" width="40" height="10" rx="5" fill={p.color === 'gas' ? '#d9b84a' : '#c4c8c4'} />
+              </g>
+            ))
+          }
+          {
+            pipes.map((p) => (
+              <text x={p.x} y="604" text-anchor="middle" class="pipe-label">
+                {p.label}
+              </text>
+            ))
+          }
+        </g>
+
+        <!-- body -->
+        <g filter="url(#b-shadow)">
+          <rect x="120" y="96" width="280" height="410" rx="16" fill="url(#b-body)" />
+        </g>
+
+        <!-- interior -->
+        <rect x="132" y="108" width="256" height="280" rx="8" fill="#c9cdc8" stroke="#b3b8b3" stroke-width="2" />
+        <rect x="244" y="104" width="32" height="14" fill="#a9aea9" />
+
+        <!-- fan -->
+        <rect x="226" y="114" width="68" height="44" rx="10" fill="#8f9590" />
+        <circle cx="260" cy="136" r="17" fill="#3a403c" />
+        <g class="impeller">
+          <circle cx="260" cy="136" r="14" fill="none" />
+          {blades.map((r) => <path d="M260 136l3-13h-6z" fill="#9aa19c" transform={`rotate(${r} 260 136)`} />)}
+        </g>
+        <circle cx="260" cy="136" r="4" fill="#c9cdc9" />
+
+        <!-- hydraulic pipes + pump -->
+        <path d="M190 222H178V388M322 222H334V388M357 208V262H334" fill="none" stroke="#b8865b" stroke-width="6" stroke-linejoin="round" />
+        <circle cx="178" cy="318" r="17" fill="#6f7571" />
+        <circle cx="178" cy="318" r="10" fill="#8f9590" />
+        <rect x="170" y="296" width="16" height="9" rx="2" fill="#5f6662" />
+
+        <!-- 1: heat exchanger -->
+        <g class="part" data-part="1">
+          <rect x="190" y="170" width="132" height="92" rx="10" fill="url(#b-hx)" />
+          {fins.map((y) => <rect x="198" y={y} width="116" height="2" fill="#8c938e" opacity=".55" />)}
+        </g>
+
+        <!-- 2: burner + gas valve -->
+        <g class="part" data-part="2">
+          <path d="M256 300V388" stroke="url(#b-gas)" stroke-width="7" />
+          <rect x="244" y="330" width="24" height="22" rx="3" fill="#d9b84a" />
+          <rect x="206" y="286" width="100" height="14" rx="4" fill="#6f7571" />
+          <rect x="212" y="290" width="88" height="3" rx="1.5" fill="#4f5551" />
+          {
+            flames.map((x, i) => (
+              <path class="flame" style={`--f:${i}`} d={`M${x} 286c-5 0-7-4-6-8 1-3 4-5 5-10 3 4 6 7 6 11 0 4-2 7-5 7z`} />
+            ))
+          }
+        </g>
+
+        <!-- 3: expansion vessel + safety valve -->
+        <g class="part" data-part="3">
+          <rect x="336" y="116" width="42" height="92" rx="20" fill="url(#b-vessel)" />
+          <rect x="344" y="126" width="6" height="70" rx="3" fill="#fff" opacity=".25" />
+          <rect x="336" y="322" width="22" height="16" rx="2" fill="#c9a24a" />
+          <rect x="356" y="318" width="14" height="24" rx="3" fill="#c0473a" />
+        </g>
+
+        <!-- front cover, slides aside when opened -->
+        <g class="cover" data-boiler-toggle>
+          <rect x="120" y="96" width="280" height="300" rx="16" fill="url(#b-body)" />
+          <rect x="120" y="96" width="280" height="200" rx="16" fill="url(#b-front)" />
+          <rect x="134" y="110" width="252" height="270" rx="10" fill="none" stroke="#e1e4e1" stroke-width="1.5" />
+          <rect x="128" y="99" width="264" height="3" rx="1.5" fill="#fff" />
+          <rect x="236" y="360" width="48" height="6" rx="3" fill="#d5d8d5" />
+          <rect class="cover__shade" x="120" y="96" width="280" height="300" rx="16" />
+        </g>
+
+        <!-- control panel -->
+        <rect x="120" y="392" width="280" height="114" rx="16" fill="url(#b-panel)" />
+        <rect x="120" y="392" width="280" height="16" fill="url(#b-panel)" />
+        <rect x="120" y="392" width="280" height="1.5" fill="#c5c9c5" />
+
+        <g class="part" data-part="4">
+          <rect x="150" y="414" width="134" height="62" rx="8" fill="url(#b-glass)" />
+        </g>
+        <rect x="154" y="418" width="126" height="20" rx="6" fill="#ffffff" opacity=".05" />
+        <text x="226" y="456" text-anchor="end" class="digits" data-boiler-temp>58</text>
+        <text x="230" y="444" class="unit">°C</text>
+        <g class="flame-icon" transform="translate(256 438)">
+          <path d="M0 18c-7 0-11-5-11-11 0-6 5-9 6-15 2 4 3 6 6 8 1-3 1-5 0-8 6 4 10 10 10 15 0 6-4 11-11 11z" />
+        </g>
+        <text x="160" y="470" class="small">VYKUROVANIE</text>
+
+        <circle cx="302" cy="432" r="8" fill="#c4c8c4" />
+        <circle cx="302" cy="432" r="6" fill="#eceeec" />
+        <circle cx="302" cy="460" r="8" fill="#c4c8c4" />
+        <circle cx="302" cy="460" r="6" fill="#eceeec" />
+
+        <!-- pressure gauge -->
+        <circle cx="356" cy="446" r="28" fill="#bfc3bf" />
+        <circle cx="356" cy="446" r="24" fill="url(#b-gauge)" />
+        <path d="M341 457a18 18 0 1 1 30 0" fill="none" stroke="#d6d9d6" stroke-width="4" />
+        <path d="M349 430a18 18 0 0 1 18 -1" fill="none" stroke="#3fa766" stroke-width="4" />
+        <g class="needle">
+          <line x1="356" y1="446" x2="356" y2="428" stroke="#2a2f2c" stroke-width="2" stroke-linecap="round" />
+        </g>
+        <circle cx="356" cy="446" r="3" fill="#2a2f2c" />
+        <text x="356" y="466" text-anchor="middle" class="tiny">bar</text>
+
+        <circle cx="384" cy="408" r="3" class="led" />
+
+        {
+          tasks.map((t, i) => (
+            <g class="badge" data-part={i + 1}>
+              <circle cx={t.badge[0]} cy={t.badge[1]} r="11" />
+              <text x={t.badge[0]} y={t.badge[1] + 4.5} text-anchor="middle">
+                {i + 1}
+              </text>
+            </g>
+          ))
+        }
+      </svg>
+
+      <button type="button" class="boiler__toggle" data-boiler-toggle aria-expanded="false">
+        <span class="boiler__toggle-icon" aria-hidden="true">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7.5 2.5L4 6l3.5 3.5" />
+          </svg>
+        </span>
+        <span data-boiler-toggle-label>Pozrieť dovnútra</span>
+      </button>
+    </figure>
+
+    <div class="boiler__copy">
+      <span class="label" data-reveal>Servis kotlov</span>
+      <h2 class="section-title" data-reveal style="--d:.08s">Kotol, na ktorý sa dá v zime spoľahnúť</h2>
+      <p class="section-lead" data-reveal style="--d:.16s">
+        Pravidelný servis predlžuje životnosť kotla, znižuje spotrebu plynu a predchádza poruchám v najhoršom možnom
+        čase. Prehliadku odporúčame raz ročne — ideálne pred vykurovacou sezónou.
+      </p>
+
+      <ol class="tasks">
+        {
+          tasks.map((t, i) => (
+            <li data-part={i + 1} data-badge={t.badge.join(' ')} data-reveal style={`--d:${0.2 + i * 0.06}s`}>
+              <span class="tasks__no" aria-hidden="true">
+                {i + 1}
+              </span>
+              <div>
+                <h3>{t.title}</h3>
+                <p>{t.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="boiler__cta" data-reveal style="--d:.45s">
+        <a href="#kontakt" class="btn">
+          Objednať servis kotla
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </a>
+        <a href={site.phoneHref} class="boiler__phone">alebo volajte <strong>{site.phone}</strong></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .boiler {
+    background: var(--white);
+    border-block: 1px solid var(--line);
+  }
+
+  .boiler__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .boiler__visual {
+    position: relative;
+    margin: 0;
+    width: min(100%, 500px);
+    justify-self: center;
+  }
+
+  .boiler__visual svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Front cover: closed until clicked, then slides aside (open by default without JS) */
+  .cover {
+    transform: translateX(-250px);
+    transition: transform 0.9s var(--ease);
+  }
+
+  :global(.js) .boiler__visual:not(.is-open) .cover {
+    transform: none;
+    cursor: pointer;
+  }
+
+  .cover__shade {
+    fill: #1f2421;
+    opacity: 0;
+  }
+
+  :global(.js) .boiler__visual:not(.is-open) .cover:hover .cover__shade {
+    opacity: 0.04;
+  }
+
+  .boiler__toggle {
+    position: absolute;
+    z-index: 3;
+    left: 47.5%;
+    top: 34.9%;
+    translate: -50% -50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.1rem 0.7rem 0.75rem;
+    border-radius: 999px;
+    border: 0;
+    background: var(--green);
+    color: #fff;
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 10px 24px -10px rgba(31, 36, 33, 0.6);
+    transition:
+      top 0.6s var(--ease),
+      left 0.6s var(--ease),
+      background 0.25s,
+      color 0.25s;
+  }
+
+  .boiler__toggle:hover {
+    background: var(--green-dark);
+  }
+
+  .boiler__toggle:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+  }
+
+  .boiler__toggle-icon {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .boiler__toggle-icon svg {
+    width: 12px;
+    height: 12px;
+    overflow: visible;
+  }
+
+  .boiler__toggle-icon::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    animation: ping 2s var(--ease) infinite;
+  }
+
+  @keyframes ping {
+    from {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    to {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .boiler__visual.is-open .boiler__toggle {
+    top: 2%;
+    left: 50%;
+    padding-block: 0.45rem;
+    font-size: 0.82rem;
+    background: var(--white);
+    color: var(--text);
+    box-shadow: 0 0 0 1px var(--line-strong);
+  }
+
+  .boiler__visual.is-open .boiler__toggle-icon {
+    background: var(--green-soft);
+    color: var(--green);
+  }
+
+  .boiler__visual.is-open .boiler__toggle-icon::after {
+    display: none;
+  }
+
+  :global(html:not(.js)) .boiler__toggle {
+    display: none;
+  }
+
+  .impeller {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spin 1.4s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  .flame {
+    fill: url(#b-blue);
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: burn 0.7s ease-in-out infinite alternate;
+    animation-delay: calc(var(--f) * -0.17s);
+  }
+
+  @keyframes burn {
+    to {
+      transform: scaleY(0.75) scaleX(0.92);
+    }
+  }
+
+  /* Parts, badges and callout lines linked to the task list */
+  .part {
+    transition: filter 0.3s;
+  }
+
+  .part.is-active {
+    filter: drop-shadow(0 0 6px rgba(47, 122, 75, 0.85));
+  }
+
+  .badge {
+    cursor: pointer;
+  }
+
+  .badge circle {
+    fill: var(--white);
+    stroke: var(--green);
+    stroke-width: 2.5;
+    transition: fill 0.25s;
+  }
+
+  .badge text {
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 800;
+    fill: var(--green);
+    transition: fill 0.25s;
+  }
+
+  .badge.is-active circle {
+    fill: var(--green);
+  }
+
+  .badge.is-active text {
+    fill: #fff;
+  }
+
+  :global(.js) .boiler__visual .badge {
+    transition: opacity 0.5s var(--ease) 0.6s;
+  }
+
+  :global(.js) .boiler__visual:not(.is-open) .badge {
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 0s;
+  }
+
+  .callouts {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .callout {
+    fill: none;
+    stroke: #9aa09b;
+    stroke-width: 1.5;
+    stroke-dasharray: 3 5;
+    transition:
+      stroke 0.25s,
+      stroke-width 0.25s,
+      opacity 0.8s var(--ease);
+  }
+
+  .callout.is-active {
+    stroke: var(--green);
+    stroke-width: 2;
+    stroke-dasharray: none;
+  }
+
+  :global(.js) .boiler__inner:has(.boiler__visual.is-open) .callout {
+    transition-delay: 0s, 0s, 0.8s;
+  }
+
+  :global(.js) .boiler__inner:not(:has(.boiler__visual.is-open)) .callout {
+    opacity: 0;
+  }
+
+  .digits {
+    font-family: var(--font);
+    font-size: 36px;
+    font-weight: 700;
+    fill: #9be3b1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .unit {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 700;
+    fill: #9be3b1;
+  }
+
+  .small {
+    font-family: var(--font);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    fill: #7f8a83;
+  }
+
+  .tiny {
+    font-family: var(--font);
+    font-size: 7px;
+    fill: #7f8581;
+  }
+
+  .pipe-label {
+    font-family: var(--font);
+    font-size: 10px;
+    font-weight: 700;
+    fill: #7f8581;
+    letter-spacing: 0.06em;
+  }
+
+  .flame-icon path {
+    fill: #f0a34c;
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: flicker 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes flicker {
+    to {
+      transform: scaleY(0.82) scaleX(0.94);
+      fill: #f5bf62;
+    }
+  }
+
+  .needle {
+    transform-box: view-box;
+    transform-origin: 356px 446px;
+    rotate: 14deg;
+    animation: needle 5s ease-in-out infinite;
+  }
+
+  @keyframes needle {
+    50% {
+      rotate: 20deg;
+    }
+  }
+
+  .led {
+    fill: #3fbf6a;
+    animation: blink 2.4s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .tasks {
+    list-style: none;
+    margin: 2.4rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .tasks li {
+    display: flex;
+    gap: 0.95rem;
+    cursor: default;
+  }
+
+  .tasks__no {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.85rem;
+    font-weight: 800;
+    background: var(--green-soft);
+    color: var(--green);
+    transition:
+      background 0.25s,
+      color 0.25s;
+  }
+
+  .tasks li.is-active .tasks__no {
+    background: var(--green);
+    color: #fff;
+  }
+
+  .tasks h3 {
+    font-size: 1.05rem;
+  }
+
+  .tasks p {
+    margin-top: 0.25rem;
+    font-size: 0.94rem;
+    color: var(--muted);
+  }
+
+  .boiler__cta {
+    margin-top: 2.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.3rem;
+  }
+
+  .boiler__phone {
+    color: var(--muted);
+  }
+
+  .boiler__phone strong {
+    color: var(--text);
+    border-bottom: 2px solid var(--green);
+  }
+
+  @media (max-width: 960px) {
+    .boiler__inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .boiler__visual {
+      width: min(100%, 380px);
+    }
+
+    .boiler__copy {
+      order: -1;
+    }
+
+    .callouts {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const inner = document.querySelector<HTMLElement>('.boiler__inner');
+  const figure = inner?.querySelector<HTMLElement>('.boiler__visual');
+  const callouts = inner?.querySelector<SVGSVGElement>('.callouts');
+
+  // Layout offset inside .boiler__inner, unaffected by reveal transforms.
+  const offsetIn = (el: HTMLElement, root: HTMLElement): [number, number] => {
+    let x = 0;
+    let y = 0;
+    let node: HTMLElement | null = el;
+    while (node && node !== root) {
+      x += node.offsetLeft;
+      y += node.offsetTop;
+      node = node.offsetParent as HTMLElement | null;
+    }
+    return [x, y];
+  };
+
+  const drawCallouts = () => {
+    if (!inner || !figure || !callouts) return;
+    const [bx, by, bw, bh] = (figure.dataset.vb ?? '').split(' ').map(Number);
+    const [fx, fy] = offsetIn(figure, inner);
+
+    inner.querySelectorAll<HTMLElement>('.tasks li').forEach((li) => {
+      const no = li.querySelector<HTMLElement>('.tasks__no');
+      const path = callouts.querySelector(`.callout[data-part="${li.dataset.part}"]`);
+      if (!no || !path) return;
+      const [ax, ay] = (li.dataset.badge ?? '').split(' ').map(Number);
+      const sx = fx + ((ax + 13 - bx) / bw) * figure.offsetWidth;
+      const sy = fy + ((ay - by) / bh) * figure.offsetHeight;
+      const [nx, ny] = offsetIn(no, inner);
+      const tx = nx - 8;
+      const ty = ny + no.offsetHeight / 2;
+      const dx = (tx - sx) * 0.5;
+      path.setAttribute('d', `M${sx} ${sy}C${sx + dx} ${sy} ${tx - dx} ${ty} ${tx} ${ty}`);
+    });
+    callouts.setAttribute('viewBox', `0 0 ${inner.clientWidth} ${inner.clientHeight}`);
+  };
+
+  const setActive = (part: string | null) => {
+    inner?.querySelectorAll<Element>('[data-part]').forEach((el) => {
+      el.classList.toggle('is-active', part !== null && el.getAttribute('data-part') === part);
+    });
+  };
+
+  const toggle = figure?.querySelector<HTMLButtonElement>('.boiler__toggle');
+  const toggleLabel = toggle?.querySelector<HTMLElement>('[data-boiler-toggle-label]');
+
+  const setOpen = (open: boolean) => {
+    if (!figure || !toggle) return;
+    figure.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    if (toggleLabel) toggleLabel.textContent = open ? 'Zavrieť kryt' : 'Pozrieť dovnútra';
+    if (!open) setActive(null);
+  };
+
+  figure?.querySelectorAll('[data-boiler-toggle]').forEach((el) => {
+    el.addEventListener('click', () => setOpen(!figure.classList.contains('is-open')));
+  });
+
+  if (inner) {
+    new ResizeObserver(drawCallouts).observe(inner);
+    inner.querySelectorAll<Element>('.tasks li, .part, .badge').forEach((el) => {
+      el.addEventListener('pointerenter', () => setActive(el.getAttribute('data-part')));
+      el.addEventListener('pointerleave', () => setActive(null));
+    });
+  }
+
+  const digits = document.querySelector<SVGTextElement>('[data-boiler-temp]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (digits && !reduced) {
+    let value = 58;
+    let direction = 1;
+    setInterval(() => {
+      value += direction;
+      if (value >= 62 || value <= 56) direction *= -1;
+      digits.textContent = String(value);
+    }, 1800);
+  }
+</script>

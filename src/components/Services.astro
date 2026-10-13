@@ -1,0 +1,170 @@
+---
+const services = [
+  {
+    title: 'Tepelné čerpadlá vzduch-voda',
+    text: 'Vykurovanie a ohrev teplej vody pre rodinný dom. Novostavby aj staršie domy, radiátory aj podlahové kúrenie.',
+    href: '#klimatizacie',
+  },
+  {
+    title: 'Klimatizácie a tepelné čerpadlá vzduch-vzduch',
+    text: 'Vykurovanie aj chladenie po miestnostiach. Vhodné ako doplnok k hlavnému vykurovaniu.',
+    href: '#klimatizacie',
+  },
+  {
+    title: 'Servis plynových kotlov',
+    text: 'Ročné prehliadky, čistenie, nastavenie a opravy porúch plynových kotlov.',
+    href: '#servis-kotlov',
+  },
+  {
+    title: 'Servis a kontroly tepelných čerpadiel',
+    text: 'Pravidelné kontroly a opravy — aj starších systémov a zariadení od iných firiem.',
+    href: '#kontakt',
+  },
+];
+---
+
+<section class="section section--white" id="sluzby">
+  <div class="container services">
+    <div class="services__head">
+      <span class="label" data-reveal>Čo robíme</span>
+      <h2 class="section-title" data-reveal style="--d:.08s">Vykurovanie, chladenie a servis od jednej firmy</h2>
+      <p class="section-lead" data-reveal style="--d:.16s">
+        Navrhujeme, montujeme a servisujeme vykurovacie systémy pre rodinné domy v Galante a okolí.
+      </p>
+    </div>
+
+    <ul class="list">
+      {
+        services.map((s, i) => (
+          <li data-reveal style={`--d:${i * 0.07}s`}>
+            <a href={s.href}>
+              <span class="list__no">{String(i + 1).padStart(2, '0')}</span>
+              <span class="list__body">
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </span>
+              <span class="list__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .services__head {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .list li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .list a {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1.2rem;
+    align-items: start;
+    padding: 1.8rem 1rem;
+    isolation: isolate;
+  }
+
+  .list a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.45s var(--ease);
+  }
+
+  .list a:hover::before {
+    transform: scaleY(1);
+  }
+
+  .list__no {
+    font-weight: 700;
+    color: var(--green);
+    padding-top: 0.15rem;
+  }
+
+  .list h3 {
+    font-size: 1.3rem;
+  }
+
+  .list p {
+    margin-top: 0.4rem;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .list__arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    display: grid;
+    place-items: center;
+    transition:
+      background 0.3s,
+      border-color 0.3s,
+      color 0.3s,
+      transform 0.45s var(--ease);
+  }
+
+  .list__arrow svg {
+    width: 17px;
+  }
+
+  .list a:hover .list__arrow {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .services {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .services__head {
+      position: static;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .list a {
+      grid-template-columns: 2.2rem 1fr;
+      padding-inline: 0.25rem;
+    }
+
+    .list__arrow {
+      display: none;
+    }
+  }
+</style>

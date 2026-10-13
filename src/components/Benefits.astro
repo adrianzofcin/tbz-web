@@ -1,0 +1,98 @@
+---
+const benefits = [
+  {
+    title: 'Návrh pre váš dom',
+    text: 'Vypočítame tepelné straty a výkon navrhneme presne pre vašu stavbu.',
+  },
+  {
+    title: 'Ponuka písomne',
+    text: 'Presnú cenu dostanete po obhliadke písomne. Bez prekvapení na faktúre.',
+  },
+  {
+    title: 'Servis aj po montáži',
+    text: 'Kontroly a opravy robíme sami. Jeden kontakt pre čerpadlo, klímu aj kotol.',
+  },
+  {
+    title: 'Prídeme k vám',
+    text: 'Termín obhliadky dohodneme telefonicky. Galanta a celý Trnavský kraj.',
+  },
+];
+---
+
+<section class="section benefits">
+  <div class="container">
+    <span class="label" data-reveal>Prečo TZB PRO SERVIS</span>
+    <h2 class="section-title" data-reveal style="--d:.08s">Poctivá práca od obhliadky po servis</h2>
+
+    <div class="grid">
+      {
+        benefits.map((b, i) => (
+          <article data-reveal style={`--d:${i * 0.07}s`}>
+            <span class="no">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  article {
+    position: relative;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  article::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--green);
+    transition: width 0.8s var(--ease) calc(var(--d, 0s) + 0.3s);
+  }
+
+  article:global(.is-visible)::before {
+    width: 48px;
+  }
+
+  .no {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  h3 {
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

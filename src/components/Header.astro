@@ -1,0 +1,248 @@
+---
+import { nav, site } from '../data/site';
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="#top" class="logo" aria-label={`${site.name} — domov`}>
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><path d="M14 34 32 18l18 16v14H14z" /></svg>
+      </span>
+      <span class="logo__text">
+        <strong>TZB PRO SERVIS</strong>
+        <small>Montáž a servis · Galanta</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Hlavná navigácia">
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <a href={site.phoneHref} class="header__phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+      </svg>
+      {site.phone}
+    </a>
+
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile" id="mobile-menu">
+    <ul>
+      {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+    </ul>
+    <a href={site.phoneHref} class="btn">Zavolať {site.phone}</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(243, 244, 242, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  :global(.is-scrolled) .header {
+    border-color: var(--line);
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 76px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .logo__mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    background: var(--green);
+  }
+
+  .logo__mark svg {
+    width: 24px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 5;
+    stroke-linejoin: round;
+  }
+
+  .logo__text {
+    display: grid;
+    line-height: 1.2;
+  }
+
+  .logo__text strong {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .logo__text small {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .nav {
+    margin-left: auto;
+  }
+
+  .nav ul {
+    display: flex;
+    gap: 0.2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav a {
+    display: block;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: var(--muted);
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav a:hover {
+    color: var(--text);
+    background: var(--bg-2);
+  }
+
+  .header__phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: var(--green);
+    color: #fff;
+    white-space: nowrap;
+    transition: background 0.25s;
+  }
+
+  .header__phone:hover {
+    background: var(--green-dark);
+  }
+
+  .header__phone svg {
+    width: 17px;
+  }
+
+  .burger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line-strong);
+    background: var(--white);
+    cursor: pointer;
+    position: relative;
+    margin-left: auto;
+  }
+
+  .burger span {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--text);
+    transition: transform 0.35s var(--ease);
+  }
+
+  .burger span:first-child {
+    transform: translateY(-4px);
+  }
+
+  .burger span:last-child {
+    transform: translateY(4px);
+  }
+
+  .burger[aria-expanded='true'] span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .burger[aria-expanded='true'] span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .mobile {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 1.25rem 1.5rem;
+    background: var(--white);
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile.is-open {
+    display: flex;
+  }
+
+  .mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile a:not(.btn) {
+    display: block;
+    padding: 0.8rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile .btn {
+    justify-content: center;
+  }
+
+  @media (max-width: 1080px) {
+    .nav,
+    .header__phone {
+      display: none;
+    }
+
+    .burger {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>('.burger');
+  const menu = document.querySelector<HTMLElement>('.mobile');
+
+  const setOpen = (open: boolean) => {
+    burger?.setAttribute('aria-expanded', String(open));
+    menu?.classList.toggle('is-open', open);
+  };
+
+  burger?.addEventListener('click', () => setOpen(burger.getAttribute('aria-expanded') !== 'true'));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>
