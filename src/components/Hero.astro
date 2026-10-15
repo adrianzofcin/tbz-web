@@ -232,11 +232,13 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
 
 <style>
   .hero {
-    padding-top: clamp(2.5rem, 6vw, 5rem);
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
     border-bottom: 1px solid var(--line);
   }
 
   .hero__inner {
+    /* 50px wider on each side than the regular container */
+    width: min(100% - 2.5rem, calc(var(--container) + 100px));
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 1.5rem 4rem;
@@ -282,7 +284,7 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
 
   .hero__points svg {
     width: 18px;
-    color: var(--green);
+    color: var(--brand);
     flex: none;
   }
 
@@ -290,9 +292,16 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
   .house {
     grid-column: 1 / -1;
     position: relative;
-    width: min(60vw, 114svh);
-    margin: clamp(1rem, 3vw, 2.5rem) 0 0 50%;
+    width: min(52vw, 98svh);
+    /* Pulled up so the roof tucks between the text columns */
+    margin: clamp(-7rem, -7vw, -3rem) 0 0 50%;
     translate: -50% 0;
+  }
+
+  .hero__head,
+  .hero__body {
+    position: relative;
+    z-index: 1;
   }
 
   .house svg {
@@ -326,7 +335,7 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
   }
 
   .led {
-    fill: #3fbf6a;
+    fill: #2cc7a9;
     animation: blink 2.4s ease-in-out infinite;
   }
 
@@ -340,7 +349,7 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
     font-family: var(--font);
     font-size: 8px;
     font-weight: 700;
-    fill: #8fe3a9;
+    fill: #8fe6d6;
   }
 
   .flame {
@@ -467,7 +476,7 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: var(--green);
+    background: var(--brand);
     box-shadow:
       0 0 0 3px rgba(255, 255, 255, 0.95),
       0 4px 10px rgba(31, 36, 33, 0.3);
@@ -478,7 +487,7 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
     position: absolute;
     inset: -3px;
     border-radius: 50%;
-    border: 2px solid var(--green);
+    border: 2px solid var(--brand);
     animation: ping 2.2s var(--ease) infinite;
   }
 
@@ -523,8 +532,8 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
 
   .hotspot:hover .hotspot__label,
   .hotspot:focus-visible .hotspot__label {
-    background: var(--green);
-    border-color: var(--green);
+    background: var(--brand);
+    border-color: var(--brand);
     color: #fff;
   }
 
@@ -536,6 +545,7 @@ const points = ['Návrh podľa výpočtu tepelných strát', 'Presná cena píso
 
     .house {
       width: 100vw;
+      margin-top: clamp(0.5rem, 1.5vw, 1.25rem);
     }
   }
 

@@ -1,0 +1,147 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const brands = [
+  {
+    name: 'Vaillant',
+    logo: `${base}/brands/vaillant.svg`,
+    ratio: 849.745 / 226.035,
+    color: '#009385',
+    tagline: 'Prvé tepelné čerpadlá na svete, ktoré sa zmestia skutočne kamkoľvek.',
+    text: 'Ide o najdôležitejšie miesto pre vás a vašu rodinu – váš domov. Pomôžeme vám vybrať ideálny systém tepelného čerpadla, ktorý zabezpečí teplo a spoľahlivosť pre pohodlie vašej rodiny.',
+    products: ['Tepelné čerpadlá', 'Hydraulické moduly', 'Regulácia'],
+  },
+  {
+    name: 'Protherm',
+    logo: `${base}/brands/protherm.svg`,
+    ratio: 576.598 / 131.764,
+    color: '#cb0d26',
+    tagline: 'Kompletná ponuka technológií na kúrenie, teplú vodu a využitie obnoviteľných zdrojov energií.',
+    text: 'Vďaka inovatívnym technologickým riešeniam ponúka Protherm čoraz pokročilejšie produkty, ktoré dbajú na ekologickú udržateľnosť.',
+    products: ['Kondenzačné kotly', 'Elektrokotly', 'Zásobníky teplej vody', 'Prietokové ohrievače', 'Tepelné čerpadlá', 'Solárne systémy'],
+  },
+];
+---
+
+<section class="section brands" aria-labelledby="brands-title">
+  <div class="container">
+    <div class="brands__head">
+      <span class="label" data-reveal>Značky, s ktorými pracujeme</span>
+      <h2 class="section-title" id="brands-title" data-reveal style="--d:.08s">Overené značky Vaillant a Protherm</h2>
+      <p class="section-lead" data-reveal style="--d:.16s">
+        Montujeme a servisujeme zariadenia výrobcov, ktorým dôverujeme. Poradíme, ktoré sa hodí práve k vášmu domu.
+      </p>
+    </div>
+
+    <ul class="brands__grid">
+      {
+        brands.map((b, i) => (
+          <li class="brand" data-reveal style={`--d:${0.1 + i * 0.08}s;--c:${b.color}`}>
+            <img src={b.logo} alt={b.name} width={Math.round(64 * b.ratio)} height="64" loading="lazy" decoding="async" />
+            <div class="brand__copy">
+              <h3>{b.tagline}</h3>
+              <p>{b.text}</p>
+            </div>
+            <ul class="brand__products" aria-label={`Produkty ${b.name}`}>
+              {b.products.map((p) => <li>{p}</li>)}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .brands {
+    border-block: 1px solid var(--line);
+  }
+
+  .brands__grid {
+    list-style: none;
+    margin: 3rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .brand {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    padding: 2.4rem 2.2rem 2.2rem;
+    border-radius: 12px;
+    background: var(--white);
+    box-shadow: 0 0 0 1px var(--line);
+    overflow: hidden;
+    transition: box-shadow 0.4s var(--ease);
+  }
+
+  .brand::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--c);
+  }
+
+  .brand:hover {
+    box-shadow:
+      0 0 0 1px var(--line-strong),
+      0 18px 40px -30px rgba(31, 36, 33, 0.35);
+  }
+
+  .brand img {
+    height: 64px;
+    width: auto;
+    align-self: flex-start;
+  }
+
+  .brand h3 {
+    font-size: 1.2rem;
+    max-width: 34ch;
+  }
+
+  .brand p {
+    margin-top: 0.6rem;
+    color: var(--muted);
+    max-width: 52ch;
+  }
+
+  .brand__products {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 1.2rem 0 0;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .brand__products li {
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  @media (max-width: 900px) {
+    .brands__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .brand {
+      padding: 2rem 1.4rem 1.6rem;
+    }
+
+    .brand img {
+      height: 48px;
+    }
+  }
+</style>

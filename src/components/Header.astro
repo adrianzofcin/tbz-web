@@ -45,16 +45,27 @@ import { nav, site } from '../data/site';
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(243, 244, 242, 0.92);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(242, 245, 244, 0.92);
+    /* Apple-style frosted glass: strong blur with boosted saturation */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s, background 0.3s;
+    transition:
+      border-color 0.3s,
+      background 0.3s,
+      box-shadow 0.3s;
   }
 
   :global(.is-scrolled) .header {
-    border-color: var(--line);
-    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(29, 36, 35, 0.08);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 8px 24px -18px rgba(29, 36, 35, 0.35);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    :global(.is-scrolled) .header {
+      background: rgba(255, 255, 255, 0.96);
+    }
   }
 
   .header__inner {
@@ -77,7 +88,7 @@ import { nav, site } from '../data/site';
     border-radius: 8px;
     display: grid;
     place-items: center;
-    background: var(--green);
+    background: var(--brand);
   }
 
   .logo__mark svg {
@@ -138,14 +149,14 @@ import { nav, site } from '../data/site';
     border-radius: var(--radius);
     font-weight: 700;
     font-size: 0.95rem;
-    background: var(--green);
+    background: var(--brand);
     color: #fff;
     white-space: nowrap;
     transition: background 0.25s;
   }
 
   .header__phone:hover {
-    background: var(--green-dark);
+    background: var(--brand-dark);
   }
 
   .header__phone svg {

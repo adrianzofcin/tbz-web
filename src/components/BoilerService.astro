@@ -210,7 +210,7 @@ const pipes = [
         <circle cx="356" cy="446" r="28" fill="#bfc3bf" />
         <circle cx="356" cy="446" r="24" fill="url(#b-gauge)" />
         <path d="M341 457a18 18 0 1 1 30 0" fill="none" stroke="#d6d9d6" stroke-width="4" />
-        <path d="M349 430a18 18 0 0 1 18 -1" fill="none" stroke="#3fa766" stroke-width="4" />
+        <path d="M349 430a18 18 0 0 1 18 -1" fill="none" stroke="#1fa590" stroke-width="4" />
         <g class="needle">
           <line x1="356" y1="446" x2="356" y2="428" stroke="#2a2f2c" stroke-width="2" stroke-linecap="round" />
         </g>
@@ -335,7 +335,7 @@ const pipes = [
     padding: 0.7rem 1.1rem 0.7rem 0.75rem;
     border-radius: 999px;
     border: 0;
-    background: var(--green);
+    background: var(--brand);
     color: #fff;
     font: inherit;
     font-size: 0.92rem;
@@ -351,11 +351,11 @@ const pipes = [
   }
 
   .boiler__toggle:hover {
-    background: var(--green-dark);
+    background: var(--brand-dark);
   }
 
   .boiler__toggle:focus-visible {
-    outline: 2px solid var(--green);
+    outline: 2px solid var(--brand);
     outline-offset: 3px;
   }
 
@@ -406,8 +406,8 @@ const pipes = [
   }
 
   .boiler__visual.is-open .boiler__toggle-icon {
-    background: var(--green-soft);
-    color: var(--green);
+    background: var(--brand-soft);
+    color: var(--brand);
   }
 
   .boiler__visual.is-open .boiler__toggle-icon::after {
@@ -450,7 +450,7 @@ const pipes = [
   }
 
   .part.is-active {
-    filter: drop-shadow(0 0 6px rgba(47, 122, 75, 0.85));
+    filter: drop-shadow(0 0 6px rgba(232, 115, 90, 0.9));
   }
 
   .badge {
@@ -459,7 +459,7 @@ const pipes = [
 
   .badge circle {
     fill: var(--white);
-    stroke: var(--green);
+    stroke: var(--brand);
     stroke-width: 2.5;
     transition: fill 0.25s;
   }
@@ -468,12 +468,12 @@ const pipes = [
     font-family: var(--font);
     font-size: 12px;
     font-weight: 800;
-    fill: var(--green);
+    fill: var(--brand);
     transition: fill 0.25s;
   }
 
   .badge.is-active circle {
-    fill: var(--green);
+    fill: var(--brand);
   }
 
   .badge.is-active text {
@@ -512,7 +512,7 @@ const pipes = [
   }
 
   .callout.is-active {
-    stroke: var(--green);
+    stroke: var(--brand);
     stroke-width: 2;
     stroke-dasharray: none;
   }
@@ -529,7 +529,7 @@ const pipes = [
     font-family: var(--font);
     font-size: 36px;
     font-weight: 700;
-    fill: #9be3b1;
+    fill: #8fe6d6;
     font-variant-numeric: tabular-nums;
   }
 
@@ -537,7 +537,7 @@ const pipes = [
     font-family: var(--font);
     font-size: 13px;
     font-weight: 700;
-    fill: #9be3b1;
+    fill: #8fe6d6;
   }
 
   .small {
@@ -590,7 +590,7 @@ const pipes = [
   }
 
   .led {
-    fill: #3fbf6a;
+    fill: #2cc7a9;
     animation: blink 2.4s ease-in-out infinite;
   }
 
@@ -623,15 +623,15 @@ const pipes = [
     place-items: center;
     font-size: 0.85rem;
     font-weight: 800;
-    background: var(--green-soft);
-    color: var(--green);
+    background: var(--brand-soft);
+    color: var(--brand);
     transition:
       background 0.25s,
       color 0.25s;
   }
 
   .tasks li.is-active .tasks__no {
-    background: var(--green);
+    background: var(--brand);
     color: #fff;
   }
 
@@ -659,7 +659,7 @@ const pipes = [
 
   .boiler__phone strong {
     color: var(--text);
-    border-bottom: 2px solid var(--green);
+    border-bottom: 2px solid var(--brand);
   }
 
   @media (max-width: 960px) {

@@ -1,16 +1,19 @@
 :root {
-  --bg: #f3f4f2;
-  --bg-2: #e9ebe8;
+  --bg: #f2f5f4;
+  --bg-2: #e7ecea;
   --white: #ffffff;
-  --text: #1f2421;
-  --muted: #606864;
-  --line: #d8dbd7;
-  --line-strong: #c4c8c3;
-  --green: #2f7a4b;
-  --green-dark: #23603a;
-  --green-soft: #e3eee6;
-  --dark: #272c29;
-  --dark-2: #323834;
+  --text: #1d2423;
+  --muted: #5d6866;
+  --line: #d6dcda;
+  --line-strong: #c2c9c7;
+  /* Vaillant teal, darkened for AA contrast on buttons and text */
+  --brand: #007a6a;
+  --brand-dark: #00604f;
+  --brand-soft: #e0f0ed;
+  /* Protherm red, used only for heating states inside illustrations, never for UI */
+  --accent: #cb0d26;
+  --dark: #232a29;
+  --dark-2: #2f3736;
   --radius: 8px;
   --container: 1200px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -67,7 +70,7 @@ p {
 }
 
 ::selection {
-  background: var(--green);
+  background: var(--brand);
   color: #fff;
 }
 
@@ -86,10 +89,14 @@ p {
 }
 
 .label {
-  display: block;
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--green);
+  line-height: 1.4;
+  color: var(--brand);
+  background: var(--brand-soft);
 }
 
 .section-title {
@@ -115,9 +122,9 @@ p {
   font-family: inherit;
   font-weight: 700;
   font-size: 0.98rem;
-  background: var(--green);
+  background: var(--brand);
   color: #fff;
-  border: 1px solid var(--green);
+  border: 1px solid var(--brand);
   cursor: pointer;
   transition:
     background 0.25s,
@@ -126,8 +133,8 @@ p {
 }
 
 .btn:hover {
-  background: var(--green-dark);
-  border-color: var(--green-dark);
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
 }
 
 .btn svg {

@@ -204,7 +204,7 @@ const spokes = [0, 30, 60, 90, 120, 150];
   }
 
   .scene[data-mode='heat'] {
-    --air: #e2a56e;
+    --air: #e8735a;
   }
 
   .ac__copy {
@@ -357,23 +357,27 @@ const spokes = [0, 30, 60, 90, 120, 150];
   }
 
   .mode button[aria-pressed='true'] {
-    background: var(--green);
+    background: var(--brand);
     color: #fff;
+  }
+
+  .scene[data-mode='heat'] .mode button[aria-pressed='true'] {
+    background: var(--accent);
   }
 
   .display {
     font-family: var(--font);
     font-size: 19px;
     font-weight: 700;
-    fill: #9be3b1;
+    fill: #8fe6d6;
   }
 
   .scene[data-mode='heat'] .display {
-    fill: #f2c08a;
+    fill: #f7a493;
   }
 
   .led {
-    fill: #3fbf6a;
+    fill: #2cc7a9;
     animation: blink 2.4s ease-in-out infinite;
   }
 

@@ -34,10 +34,22 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    padding-block: 3.5rem 2rem;
+    --slant: clamp(1.5rem, 3vw, 3rem);
+    position: relative;
+    padding-block: calc(3.5rem + var(--slant)) 2rem;
     background: var(--dark);
-    color: #b5bbb7;
+    color: #b3bcba;
     font-size: 0.95rem;
+  }
+
+  /* Slanted top edge (Protherm brochure motif), filled with the contact section's white */
+  .footer::before {
+    content: '';
+    position: absolute;
+    inset: -1px 0 auto;
+    height: calc(var(--slant) + 1px);
+    background: var(--white);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
   }
 
   .footer__grid {
